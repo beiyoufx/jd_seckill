@@ -20,6 +20,13 @@ class Timer(object):
 
         self.diff_time = self.local_jd_time_diff()
 
+        self.now = datetime.now()
+        if self.buy_time < self.now:
+            logger.info('您设置的抢购时间:{}'.format(self.buy_time))
+            self.buy_time = self.buy_time.replace(self.now.year, self.now.month, self.now.day)
+            logger.info('小于当前抢购时间:{}，已经帮您设计好当前可抢购时间！'.format(self.buy_time))
+
+
     def jd_time(self):
         """
         从京东服务器获取时间毫秒
